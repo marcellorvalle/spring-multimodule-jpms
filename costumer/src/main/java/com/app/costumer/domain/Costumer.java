@@ -1,11 +1,11 @@
 package com.app.costumer.domain;
 
-public class Customer {
+public class Costumer {
     private Long id;
     private String name;
 
-    public Customer() {}
-    public Customer(Long id, String name) { this.id = id; this.name = name; }
+    public Costumer() {}
+    public Costumer(Long id, String name) { this.id = id; this.name = name; }
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
