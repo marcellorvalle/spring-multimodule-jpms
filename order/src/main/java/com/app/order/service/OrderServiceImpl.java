@@ -7,16 +7,12 @@ import com.app.order.domain.Order;
 import com.app.product.api.ProductService;
 import lombok.AllArgsConstructor;
 import lombok.ToString;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
 @ToString
 public class OrderServiceImpl implements OrderService {
-    private static final Logger log = LoggerFactory.getLogger(OrderServiceImpl.class);
-
     private final CustomerService customerService;
     private final ProductService productService;
     private final BillingService billingService;
@@ -30,7 +26,6 @@ public class OrderServiceImpl implements OrderService {
         var billId = billingService.tryToBill(order.getCustomer(), order.getTotal());
         order.setBillId(billId);
 
-        log.info("Order placed: {}", order);
         return order;
     }
 }

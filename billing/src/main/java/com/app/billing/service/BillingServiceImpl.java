@@ -6,17 +6,17 @@ import com.app.billing.event.BillingFailed;
 import com.app.billing.event.BillingSubmitted;
 import com.app.customer.domain.Customer;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 @Service
-@Slf4j
 @RequiredArgsConstructor
 public class BillingServiceImpl implements BillingService {
 
@@ -28,11 +28,7 @@ public class BillingServiceImpl implements BillingService {
 
     @Override
     public String tryToBill(Customer customer, BigDecimal amount) {
-        String billId = generateBillId();
-
-        log.info("Iniciando cobrança para cliente: {} | Valor: {} | ID: {}",
-                customer.getName(), amount, billId);
-
+        var billId = generateBillId();
         processAsyncBilling(billId, customer, amount);
 
         return billId;
@@ -43,15 +39,17 @@ public class BillingServiceImpl implements BillingService {
     }
 
     private void processAsyncBilling(String billId, Customer customer, BigDecimal amount) {
-        publishBillingSubmitted(billId, customer, amount);
+        var submissionTime = publishBillingSubmitted(billId, customer, amount);
 
         CompletableFuture
                 .supplyAsync(this::simulatePaymentProcessing)
-                .thenAccept(isSuccessful -> publishBillingResult(isSuccessful, billId, customer, amount));
+                .thenAccept(isSuccessful -> publishBillingResult(isSuccessful, billId, customer, amount, submissionTime));
     }
 
-    private void publishBillingSubmitted(String billId, Customer customer, BigDecimal amount) {
+    private LocalDateTime publishBillingSubmitted(String billId, Customer customer, BigDecimal amount) {
         eventPublisher.publishEvent(new BillingSubmitted(billId, customer, amount));
+
+        return LocalDateTime.now();
     }
 
     private boolean simulatePaymentProcessing() {
@@ -65,11 +63,17 @@ public class BillingServiceImpl implements BillingService {
         }
     }
 
-    private void publishBillingResult(boolean isSuccessful, String billId, Customer customer, BigDecimal amount) {
+    private void publishBillingResult(boolean isSuccessful, String billId, Customer customer, BigDecimal amount, LocalDateTime submissionTime) {
+        var processingTime = calculateProcessingTime(submissionTime);
+
         if (isSuccessful) {
-            eventPublisher.publishEvent(new BillingCompleted(billId, customer, amount));
+            eventPublisher.publishEvent(new BillingCompleted(billId, customer, amount, processingTime));
         } else {
-            eventPublisher.publishEvent(new BillingFailed(billId, customer, amount));
+            eventPublisher.publishEvent(new BillingFailed(billId, customer, amount, processingTime));
         }
+    }
+
+    private long calculateProcessingTime(LocalDateTime submissionTime) {
+        return Duration.between(submissionTime, LocalDateTime.now()).toMillis();
     }
 }

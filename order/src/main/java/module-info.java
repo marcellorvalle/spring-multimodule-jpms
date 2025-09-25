@@ -18,4 +18,5 @@ module com.app.order {
     // Enabling reflection access from unnamed Spring modules
     opens com.app.order.service;
     opens com.app.order.controller;
+    opens com.app.order.listener;
 }

@@ -9,9 +9,10 @@ public record BillingCompleted (
         String billingId,
         Customer customer,
         BigDecimal amount,
-        LocalDateTime localDateTime
+        LocalDateTime localDateTime,
+        long processingMillis
 ) {
-    public BillingCompleted(String billingId, Customer customer, BigDecimal amount) {
-        this(billingId, customer, amount, LocalDateTime.now());
+    public BillingCompleted(String billingId, Customer customer, BigDecimal amount, long processingMillis) {
+        this(billingId, customer, amount, LocalDateTime.now(), processingMillis);
     }
 }
