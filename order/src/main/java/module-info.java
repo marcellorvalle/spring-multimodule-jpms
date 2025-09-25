@@ -1,7 +1,8 @@
 module com.app.order {
+    requires com.app.shared;
     requires com.app.costumer;
     requires com.app.product;
-    requires com.app.shared;
+    requires com.app.billing;
 
     requires spring.context;
     requires spring.web;

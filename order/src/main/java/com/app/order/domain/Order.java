@@ -22,7 +22,7 @@ public class Order {
     private Product product;
 
     private int quantity;
-
+    String billId;
     private boolean billed = false;
 
     public BigDecimal getTotal() {

@@ -1,5 +1,6 @@
 package com.app.order.service;
 
+import com.app.billing.api.BillingService;
 import com.app.customer.api.CustomerService;
 import com.app.order.api.OrderService;
 import com.app.order.domain.Order;
@@ -18,12 +19,16 @@ public class OrderServiceImpl implements OrderService {
 
     private final CustomerService customerService;
     private final ProductService productService;
+    private final BillingService billingService;
 
     public Order placeOrder(OrderRequest orderRequest) {
         var order = new Order();
         order.setCustomer(customerService.findById(orderRequest.customerId()).orElseThrow());
         order.setProduct(productService.getById(orderRequest.productId()));
         order.setQuantity(orderRequest.quantity());
+
+        var billId = billingService.tryToBill(order.getCustomer(), order.getTotal());
+        order.setBillId(billId);
 
         log.info("Order placed: {}", order);
         return order;
