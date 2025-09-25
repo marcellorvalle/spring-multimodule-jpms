@@ -13,6 +13,10 @@ java {
     }
 }
 
+repositories {
+    mavenCentral()
+}
+
 subprojects {
     apply(plugin = "java")
     apply(plugin = "io.spring.dependency-management")
@@ -25,6 +29,11 @@ subprojects {
     dependencies {
         implementation("org.springframework.boot:spring-boot-starter-data-jpa")
         implementation("org.springframework.boot:spring-boot-starter-web")
+
+        // Adicione estas dependências explicitamente
+        implementation("org.slf4j:slf4j-api")
+        implementation("ch.qos.logback:logback-classic")
+
         compileOnly("org.projectlombok:lombok")
         developmentOnly("org.springframework.boot:spring-boot-devtools")
 
@@ -38,32 +47,4 @@ subprojects {
     tasks.withType<Test> {
         useJUnitPlatform()
     }
-
-    //////////////
-//    apply(plugin = "java")
-//    apply(plugin = "io.spring.dependency-management")
-//
-//    group = "com.app"
-//    version = "0.0.1-SNAPSHOT"
-//
-//    java {
-//        toolchain {
-//            languageVersion.set(JavaLanguageVersion.of(17))
-//        }
-//        withSourcesJar()
-//    }
-//
-//    repositories {
-//        mavenCentral()
-//    }
-//
-//    dependencies {
-//        implementation("org.springframework.boot:spring-boot-starter")
-//        implementation("org.springframework.boot:spring-boot-starter-web")
-//        testImplementation("org.springframework.boot:spring-boot-starter-test")
-//    }
-//
-//    tasks.named("test") {
-//        useJUnitPlatform()
-//    }
 }

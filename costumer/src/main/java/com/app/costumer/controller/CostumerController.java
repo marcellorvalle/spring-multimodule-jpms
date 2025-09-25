@@ -15,7 +15,7 @@ public class CostumerController {
         this.customerApi = customerApi;
     }
 
-    @GetMapping("/costumers/{id}")
+    @GetMapping("/customers/{id}")
     public Costumer find(@PathVariable Long id) {
         return customerApi.findById(id).orElseThrow();
     }

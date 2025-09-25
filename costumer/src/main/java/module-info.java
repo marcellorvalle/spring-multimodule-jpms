@@ -3,6 +3,8 @@ module com.app.costumer {
     requires spring.context;
     requires spring.web;
     requires java.sql;
+    requires jakarta.persistence;
+    requires static lombok;
     exports com.app.costumer.api;
     exports com.app.costumer.domain;
     // Enabling reflection access from unnamed Spring modules

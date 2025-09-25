@@ -1,2 +1,2 @@
 rootProject.name = "spring-multimodule-jpms"
-include("shared", "costumer", "order", "app")
+include("shared", "costumer", "product", "order", "app")
