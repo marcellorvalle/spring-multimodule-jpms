@@ -1,0 +1,46 @@
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# IntelliJ out dir
+out/
+
+### Gradle ###
+.gradle/
+build/
+**/build/
+
+# Local Gradle wrapper files
+gradle-app.setting
+!gradle-wrapper.jar
+!gradlew
+!gradlew.bat
+
+# Gradle caches
+.gradle/
+**/.gradle/
+
+### Logs ###
+*.log
+
+### OS files ###
+.DS_Store
+Thumbs.db
+
+### Java ###
+*.class
+*.jar
+*.war
+*.ear
+
+### Others ###
+# Backup / temp files
+*~
+*.swp
+*.swo
+
+# IDE crash logs
+hs_err_pid*
+replay_pid*
