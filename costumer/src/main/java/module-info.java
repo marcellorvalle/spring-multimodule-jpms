@@ -5,9 +5,9 @@ module com.app.costumer {
     requires java.sql;
     requires jakarta.persistence;
     requires static lombok;
-    exports com.app.costumer.api;
-    exports com.app.costumer.domain;
+    exports com.app.customer.api;
+    exports com.app.customer.domain;
     // Enabling reflection access from unnamed Spring modules
-    opens com.app.costumer.controller;
-    opens com.app.costumer.service;
+    opens com.app.customer.controller;
+    opens com.app.customer.service;
 }

@@ -1,4 +1,4 @@
-package com.app.costumer.domain;
+package com.app.customer.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Costumer {
+public class Customer {
     @Id
     private Long id;
     private String name;

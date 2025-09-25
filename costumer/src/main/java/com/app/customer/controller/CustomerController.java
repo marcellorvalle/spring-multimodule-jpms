@@ -1,22 +1,22 @@
-package com.app.costumer.controller;
+package com.app.customer.controller;
 
-import com.app.costumer.domain.Costumer;
-import com.app.costumer.api.CostumerService;
+import com.app.customer.domain.Customer;
+import com.app.customer.api.CustomerService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class CostumerController {
+public class CustomerController {
 
-    private final CostumerService customerApi;
+    private final CustomerService customerApi;
 
-    public CostumerController(CostumerService customerApi) {
+    public CustomerController(CustomerService customerApi) {
         this.customerApi = customerApi;
     }
 
     @GetMapping("/customers/{id}")
-    public Costumer find(@PathVariable Long id) {
+    public Customer find(@PathVariable Long id) {
         return customerApi.findById(id).orElseThrow();
     }
 }

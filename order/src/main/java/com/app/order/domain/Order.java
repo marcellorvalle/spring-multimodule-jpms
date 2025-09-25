@@ -1,6 +1,6 @@
 package com.app.order.domain;
 
-import com.app.costumer.domain.Costumer;
+import com.app.customer.domain.Customer;
 import com.app.product.domain.Product;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -15,7 +15,7 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "costumerId", nullable = false)
-    private Costumer costumer;
+    private Customer customer;
 
     @ManyToOne
     @JoinColumn(name = "productId", nullable = false)
