@@ -5,5 +5,7 @@ module com.app.app {
     requires com.app.shared;
     requires com.app.costumer;
     requires com.app.order;
-    opens com.app.app to spring.beans, spring.context;
+
+    // Enabling reflection access from unnamed Spring modules
+    opens com.app.app;
 }
